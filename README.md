@@ -27,6 +27,10 @@ So why learn C++? Among many other things:
 
 ```We can describe the process of developing a program as having four stages: 1. Analysis: What's the problem? 2. Design: How do we solve the problem? What should be the overall structure of the system? How does the system communicate with its users? 3. Programming: Express the solution to the problem in code. 4. Testing: make sure the system works correctly under all circumstances required by systematically trying it out.```
 
+## Outline
+1. Hello world ( pure output production)
+2. Data (**real software tend to produce results based on some input, rather than just doing exactly the same thing each time we excecute them**. To read sth, we need somewhere to read into, in the computer's memory to place what to read. We call such a "place" an object. An *object* is a region of memory with a *type* that specifies what kind of information can be placed in it. **A named object is called a *variable***. The data we put into the variables are called *values*. A statement that defines a variable is called a *definition*. A definition can provide an initial value.)
+
 #### What do we need?
 1. Install an IDE (XCode on Mac or Visual Studio on Windows)
 2. Install a compiler (included in the IDE)
