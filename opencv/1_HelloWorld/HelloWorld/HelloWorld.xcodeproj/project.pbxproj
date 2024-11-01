@@ -6,8 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		7F3D3EFF2CD47085004CC0B0 /* libopencv_core.4.10.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F3D3EFE2CD47085004CC0B0 /* libopencv_core.4.10.0.dylib */; };
+		7F3D3F032CD471A6004CC0B0 /* libopencv_imgcodecs.4.10.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F3D3F022CD471A6004CC0B0 /* libopencv_imgcodecs.4.10.0.dylib */; };
+		7F3D3F042CD471A6004CC0B0 /* libopencv_highgui.4.10.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F3D3F012CD471A6004CC0B0 /* libopencv_highgui.4.10.0.dylib */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
-		7FACEEF22CD45FE400609EC3 /* CopyFiles */ = {
+		7F3D3EF22CD47041004CC0B0 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -19,11 +25,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7FACEEF42CD45FE400609EC3 /* HelloWorld */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HelloWorld; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F3D3EF42CD47041004CC0B0 /* HelloWorld */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HelloWorld; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F3D3EFE2CD47085004CC0B0 /* libopencv_core.4.10.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_core.4.10.0.dylib; sourceTree = "<group>"; };
+		7F3D3F012CD471A6004CC0B0 /* libopencv_highgui.4.10.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_highgui.4.10.0.dylib; sourceTree = "<group>"; };
+		7F3D3F022CD471A6004CC0B0 /* libopencv_imgcodecs.4.10.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_imgcodecs.4.10.0.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		7FACEEF62CD45FE400609EC3 /* HelloWorld */ = {
+		7F3D3EF62CD47041004CC0B0 /* HelloWorld */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = HelloWorld;
 			sourceTree = "<group>";
@@ -31,28 +40,34 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7FACEEF12CD45FE400609EC3 /* Frameworks */ = {
+		7F3D3EF12CD47041004CC0B0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F3D3EFF2CD47085004CC0B0 /* libopencv_core.4.10.0.dylib in Frameworks */,
+				7F3D3F032CD471A6004CC0B0 /* libopencv_imgcodecs.4.10.0.dylib in Frameworks */,
+				7F3D3F042CD471A6004CC0B0 /* libopencv_highgui.4.10.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7FACEEEB2CD45FE400609EC3 = {
+		7F3D3EEB2CD47041004CC0B0 = {
 			isa = PBXGroup;
 			children = (
-				7FACEEF62CD45FE400609EC3 /* HelloWorld */,
-				7FACEEF52CD45FE400609EC3 /* Products */,
+				7F3D3F012CD471A6004CC0B0 /* libopencv_highgui.4.10.0.dylib */,
+				7F3D3F022CD471A6004CC0B0 /* libopencv_imgcodecs.4.10.0.dylib */,
+				7F3D3EFE2CD47085004CC0B0 /* libopencv_core.4.10.0.dylib */,
+				7F3D3EF62CD47041004CC0B0 /* HelloWorld */,
+				7F3D3EF52CD47041004CC0B0 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		7FACEEF52CD45FE400609EC3 /* Products */ = {
+		7F3D3EF52CD47041004CC0B0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7FACEEF42CD45FE400609EC3 /* HelloWorld */,
+				7F3D3EF42CD47041004CC0B0 /* HelloWorld */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,63 +75,63 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7FACEEF32CD45FE400609EC3 /* HelloWorld */ = {
+		7F3D3EF32CD47041004CC0B0 /* HelloWorld */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7FACEEFB2CD45FE400609EC3 /* Build configuration list for PBXNativeTarget "HelloWorld" */;
+			buildConfigurationList = 7F3D3EFB2CD47041004CC0B0 /* Build configuration list for PBXNativeTarget "HelloWorld" */;
 			buildPhases = (
-				7FACEEF02CD45FE400609EC3 /* Sources */,
-				7FACEEF12CD45FE400609EC3 /* Frameworks */,
-				7FACEEF22CD45FE400609EC3 /* CopyFiles */,
+				7F3D3EF02CD47041004CC0B0 /* Sources */,
+				7F3D3EF12CD47041004CC0B0 /* Frameworks */,
+				7F3D3EF22CD47041004CC0B0 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				7FACEEF62CD45FE400609EC3 /* HelloWorld */,
+				7F3D3EF62CD47041004CC0B0 /* HelloWorld */,
 			);
 			name = HelloWorld;
 			packageProductDependencies = (
 			);
 			productName = HelloWorld;
-			productReference = 7FACEEF42CD45FE400609EC3 /* HelloWorld */;
+			productReference = 7F3D3EF42CD47041004CC0B0 /* HelloWorld */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7FACEEEC2CD45FE400609EC3 /* Project object */ = {
+		7F3D3EEC2CD47041004CC0B0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
-					7FACEEF32CD45FE400609EC3 = {
+					7F3D3EF32CD47041004CC0B0 = {
 						CreatedOnToolsVersion = 16.1;
 					};
 				};
 			};
-			buildConfigurationList = 7FACEEEF2CD45FE400609EC3 /* Build configuration list for PBXProject "HelloWorld" */;
+			buildConfigurationList = 7F3D3EEF2CD47041004CC0B0 /* Build configuration list for PBXProject "HelloWorld" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 7FACEEEB2CD45FE400609EC3;
+			mainGroup = 7F3D3EEB2CD47041004CC0B0;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 7FACEEF52CD45FE400609EC3 /* Products */;
+			productRefGroup = 7F3D3EF52CD47041004CC0B0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7FACEEF32CD45FE400609EC3 /* HelloWorld */,
+				7F3D3EF32CD47041004CC0B0 /* HelloWorld */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7FACEEF02CD45FE400609EC3 /* Sources */ = {
+		7F3D3EF02CD47041004CC0B0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -126,7 +141,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		7FACEEF92CD45FE400609EC3 /* Debug */ = {
+		7F3D3EF92CD47041004CC0B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -187,7 +202,7 @@
 			};
 			name = Debug;
 		};
-		7FACEEFA2CD45FE400609EC3 /* Release */ = {
+		7F3D3EFA2CD47041004CC0B0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -241,22 +256,38 @@
 			};
 			name = Release;
 		};
-		7FACEEFC2CD45FE400609EC3 /* Debug */ = {
+		7F3D3EFC2CD47041004CC0B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = HelloWorld/HelloWorld.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KN9ALP9DN2;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/opencv/4.10.0_12/include/opencv4;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/HelloWorld",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		7FACEEFD2CD45FE400609EC3 /* Release */ = {
+		7F3D3EFD2CD47041004CC0B0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = HelloWorld/HelloWorld.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KN9ALP9DN2;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/opencv/4.10.0_12/include/opencv4;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/HelloWorld",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -264,25 +295,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7FACEEEF2CD45FE400609EC3 /* Build configuration list for PBXProject "HelloWorld" */ = {
+		7F3D3EEF2CD47041004CC0B0 /* Build configuration list for PBXProject "HelloWorld" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7FACEEF92CD45FE400609EC3 /* Debug */,
-				7FACEEFA2CD45FE400609EC3 /* Release */,
+				7F3D3EF92CD47041004CC0B0 /* Debug */,
+				7F3D3EFA2CD47041004CC0B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7FACEEFB2CD45FE400609EC3 /* Build configuration list for PBXNativeTarget "HelloWorld" */ = {
+		7F3D3EFB2CD47041004CC0B0 /* Build configuration list for PBXNativeTarget "HelloWorld" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7FACEEFC2CD45FE400609EC3 /* Debug */,
-				7FACEEFD2CD45FE400609EC3 /* Release */,
+				7F3D3EFC2CD47041004CC0B0 /* Debug */,
+				7F3D3EFD2CD47041004CC0B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 7FACEEEC2CD45FE400609EC3 /* Project object */;
+	rootObject = 7F3D3EEC2CD47041004CC0B0 /* Project object */;
 }

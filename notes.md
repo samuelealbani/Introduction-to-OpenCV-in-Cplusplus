@@ -144,11 +144,21 @@ template on robot simulator or plain computer vision?
 
 ### Basic
 
-1. Open the Terminal
-2. Type this command: `brew install opencv` 
+1. Install [Homebrew](https://brew.sh/)
+2. Open the Terminal
+3. Type this command: `brew install opencv` 
 
+## Create a new Project
+1. Open XCode
+2. Create New Project
+3. Select `macOS` tab
+4. Select `Command Line Tool` and press `Next`
+5. Type a title, Select `C++` as Language, and press `Next`
+6. Choose the directory for your project
+7. right-click on the left side panel > Add files to "YourProjectName"
+8. Type `/opt/homebrew/Cellar/opencv` (or `/usr/local/Cellar/opencv`)
 
-
+Signing & Capabilities > Flag "Disable Library Validation" https://stackoverflow.com/questions/64828034/mapping-process-and-mapped-file-non-platform-have-different-team-ids
 
 
 ## Install on Windows
@@ -216,7 +226,7 @@ Variables and add the OpenCV binary path to the Path variable.)
     > C:\opencv\build\install\x64\vc17\bin
 2. Restart Visual Studio
 
-#### 5) Test Install
+## Create a new Project
 
 In Visual Studio:
 1. Press `Create New Project` or press `File > New > Project`
