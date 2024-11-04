@@ -1,5 +1,31 @@
 # Introduction to OpenCV in C++
 
+In this workshop, we will explore how to use the OpenCV library in C++ to create programs for image processing and computer vision. The session will start with an introduction to the fundamentals of C++ programming. Next, we’ll explore OpenCV, from basic image and video input/output to advanced techniques in image manipulation and analysis.
+
+You’ll learn to execute computation on images, applying filters, detecting edges, and using blob detection. We’ll also explore advanced OpenCV features, like object recognition and integrating deep learning models. Throughout, I’ll introduce technical demonstrations drawing from my practice as an artist and experience as a creative technologist, including applications in creative robotics.
+
+Please be punctual and bring your laptop! I recommend installing the OpenCV library before the start of the lesson. Instructions are available here for both Mac and Windows, and I’ll be available to assist you with any installation issues in class.
+
+
+---
+In this workshop, we will explore how to use OpenCV library in C++ to create programs for image processing and computer vision. The session will start with an introduction to the fundamentals of C++ programming language. Next, we will explore OpenCV, from basic image and video input/output to advanced image manipulation and analysis techniques.
+
+You’ll learn to execute computation on images, applaying filters, detecting edges, and using blob detection. We’ll also explore advanced OpenCV features, like object recognition, integrating deep learning models. Throughout, I’ll introduce technical demonstrations drawing from my practice as an artist and experience as creative technologist, including applications in creative robotics.
+
+Please, be punctual and bring your laptop! I recommend installing the OpenCV library before the start of the lesson. Here you can find instructions for both Mac and Windows. If any installation issues arise, I’ll be available to assist you in class.
+
+See you coding soon!
+
+
+In this workshop, hands on we will explore 
+- fundamentals of C++ programming languages
+- Introduction to OpenCV in C++
+- fundamental concepts of Computer Vision technology, 
+- manipulation and analysis of images data
+- technical demonstration drawing from my practice of artist and creative technologis
+- application in Creative Robotics
+- Advanced application of deep learning models UAL
+
 ### Outline:
 #### C++
 0. Installation
@@ -14,7 +40,8 @@
    2. Return types
    3. Custom Functions
 5. Collections (vectors)
-6. Pointers [extra]
+6. Pointers [`extra`]
+7. Classes [`extra`]
 
 #### OpenCV
 0. Installation
@@ -22,12 +49,13 @@
 2. Video (file/camera input)
 3. Graphics (2D shapes / text)
 4. Image Manipulation (BW, blur, edge detection, segmentation)
-5. Applications/Examples
+5. Image Analysis (Blob Detection)
+6. Applications/Examples
    1. Brightest spot (torch)
    2. Aruco (chess)
-6. Image Analysis (face detection)
-7. Deep Learning [extra]
-8. Robot Demonstration [testing]
+7. [Face Recognition](https://docs.opencv.org/4.x/da/d60/tutorial_face_main.html)
+8. [Deep Learning Models](https://docs.opencv.org/4.x/d0/dd4/tutorial_dnn_face.html) [`extra`]
+9. Robot Demonstration [`testing`]
 
 ## OpenCV
 **OpenCV (Open Source Computer Vision Library) is an open source computer vision and machine learning software library.**
