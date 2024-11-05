@@ -5,7 +5,7 @@ In this workshop, we will explore how to use the OpenCV library in C++ to create
 You’ll learn to execute computation on images, applying filters, detecting edges, and using blob detection. We’ll also explore advanced OpenCV features, like object recognition and integrating deep learning models. Throughout, I’ll introduce technical demonstrations drawing from my practice as an artist and experience as a creative technologist. We’ll conclude with reflections on applications in creative robotics.
 
 
-## Requirements
+## Installation
 
 ### Installation on Mac
 1. Install [Xcode **selecting 'macOS platform' support**](https://developer.apple.com/xcode/)
