@@ -51,6 +51,24 @@ When we consider dividing up a program, we must always consider what tools we ha
    1. Exit codes
         The purpose of the exit() function is to terminate the execution of a program. The “return 0”(or EXIT_SUCCESS) implies that the code has executed successfully without any error. Exit codes other than “0”(or EXIT_FAILURE) indicate the presence of an error in the code. [link](https://www.geeksforgeeks.org/exit-codes-in-c-c-with-examples/) 
    2. Custom Functions
+      The standard library provides a lot of useful functions, such as the square root function `sqrt()`. However, we write many functions ourselves. We don't have to use the result of a function call, but we do have to give a function exactly the arguments it requires. Usually, all the information needed to call a funcion is in the first line of its declaration. For example:
+      > int square (int x)
+      We don't really need to llok at the function body. Most of the time, we are just interested in knowing how to call a function. Fortunately, C++ provides a way of supplying that information separate from the complete function definition. It is called *function declaration*:
+      > int square(int);
+      A semicolon is used in a function declaration instead of the body used in the corresponding *function definition*
+      ```cpp
+      int square (int x)
+      {
+         return x*x;
+      }
+      ```
+      So, if you want to use a function, you simply write, or `#include`, its declaration. The function definition can be elsewhere. This distinction between declaration and definitions becomes essential in larger programs where we use declarations to keep most of the code out of sight to allow us to concentrate on single part of program at a time.
+      A *declaration* is a statement that introduces a name into a scope:
+      - specifying a type for what is named
+      - optionally, specifying an initialiser (i.e. an initial value or a function body)
+      Before a name can be used in a C++ program, it must be declared.
+      Every *definition* is also a declaraton, but only some declaration are also definitions. A definition specifies exactly what a name refers to. In particular, a definition of a variable sets aside memory for that variable. Consequently, you can't define something twice.
+      In contrast, a declaration that isn't also a definition simply tells how to use a name; it is just an interface and doesn't allocate memory or specify a function body
 5. Collections
    [Advantages of vector over array in C++](https://www.geeksforgeeks.org/advantages-of-vector-over-array-in-c/)
    Vectors: A vector is a sequence of elements that you can access by an index. That is, the first element has index 0, the second index 1, and so on. The vectors are resizable i.e they can grow and shrink as vectors are allocated on heap memory. 
@@ -138,6 +156,13 @@ tutorial on the library's installation?
 
 template on robot simulator or plain computer vision?
 
+## Color Spaces
+[ranges](https://docs.opencv.org/4.x/d8/d01/group__imgproc__color__conversions.html#gga4e0972be5de079fed4e3a10e24ef5ef0a353a4b8db9040165db4dacb5bcefb6ea:~:text=%E2%97%86-,cvtColor,-())
+The conventional ranges for R, G, and B channel values are:
+- 0 to 255 for CV_8U images
+- 0 to 65535 for CV_16U images
+- 0 to 1 for CV_32F images
+
 ## Install on Mac
 
 1. Install [Xcode **selecting 'macOS platform' support**](https://developer.apple.com/xcode/)
@@ -159,7 +184,7 @@ Please, check and find your opencv installation folder either using Terminal or 
 6. Choose the directory for your project, and press `Create`.
 7. Find OpenCV library files and paths
    1. Open a terminal and type `brew install pkg-config`
-   2. View the linker flags for OpenCV running `pkg-config --cflags --libs /opt/homebrew/Cellar/opencv/<VERSION>/lib/pkgconfig/opencv4.pc` (Change <VERSION> with your saved version of OpenCV!)
+   2. View the linker flags for OpenCV running `pkg-config --cflags --libs /opt/homebrew/Cellar/opencv/<VERSION>/lib/pkgconfig/opencv4.pc` (Change <VERSION> with your saved version of OpenCV! i.e. `pkg-config --cflags --libs /opt/homebrew/Cellar/opencv/4.10.0_12/lib/pkgconfig/opencv4.pc`)
    The output will be something like:
    ```bash
    -I/opt/homebrew/opt/opencv/include/opencv4 -L/opt/homebrew/opt/opencv/lib -lopencv_gapi -lopencv_stitching -lopencv_alphamat -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired -lopencv_ccalib -lopencv_dnn_objdetect -lopencv_dnn_superres -lopencv_dpm -lopencv_face -lopencv_freetype -lopencv_fuzzy -lopencv_hfs -lopencv_img_hash -lopencv_intensity_transform -lopencv_line_descriptor -lopencv_mcc -lopencv_quality -lopencv_rapid -lopencv_reg -lopencv_rgbd -lopencv_saliency -lopencv_sfm -lopencv_signal -lopencv_stereo -lopencv_structured_light -lopencv_phase_unwrapping -lopencv_superres -lopencv_optflow -lopencv_surface_matching -lopencv_tracking -lopencv_highgui -lopencv_datasets -lopencv_text -lopencv_plot -lopencv_videostab -lopencv_videoio -lopencv_viz -lopencv_wechat_qrcode -lopencv_xfeatures2d -lopencv_shape -lopencv_ml -lopencv_ximgproc -lopencv_video -lopencv_xobjdetect -lopencv_objdetect -lopencv_calib3d -lopencv_imgcodecs -lopencv_features2d -lopencv_dnn -lopencv_flann -lopencv_xphoto -lopencv_photo -lopencv_imgproc -lopencv_core
@@ -179,14 +204,19 @@ Please, check and find your opencv installation folder either using Terminal or 
 10. Set Other Linker Flags:
    1. click on the Xcode project name in the left side panel, go to `Build Settings` tab and then search for `Other linker flags`  in the search bar.
    2. double click to add the _library search path_ (paste the path you found with pkg-config) (i.e. `libopencv_core.4.10.0.dylib`, `libopencv_highgui.4.10.0.dylib`, and `libopencv_imgcodecs.4.10.0.dylib`)
-
+11. Sigining & Capabilities (if necessary)
+   1. Flag Disable Library Validation
 [Tutorial source](https://medium.com/@jaskaranvirdi/setting-up-opencv-and-c-development-environment-in-xcode-b6027728003)
-
-
 
 
 Signing & Capabilities > Flag "Disable Library Validation" https://stackoverflow.com/questions/64828034/mapping-process-and-mapped-file-non-platform-have-different-team-ids
 
+
+If XCode opens a new terminal page follow this procedure:
+1.	In Xcode, go to the menu bar and select Product > Scheme > Edit Scheme.
+2.	In the Run section on the left panel, look for the Info tab.
+3.	Under Executable, you’ll see options:
+   - unflag `Debug executable`
 
 ## Install on Windows
 
@@ -272,6 +302,11 @@ Include Libraries into the project (for both Debug and Release)
    2. Type '/', and go to the `lib` folder inside the installation opencv directory (i.e. `/opt/homebrew/Cellar/opencv/4.10.0_12/lib` )
    3. Select all the last version of the files you need for your project (i.e. `libopencv_core.4.10.0.dylib`, `libopencv_highgui.4.10.0.dylib`, and `libopencv_imgcodecs.4.10.0.dylib`)
 8. Link the OpenCV Header files
+   1. /opt/homebrew/Cellar/opencv/4.10.0_12/include/opencv4
+   $(PROJECT_DIR)
+
+9. Sigining & Capabilities
+   1. Flag Disable Library Validation
 
 ## Basic Installation in Windows
 

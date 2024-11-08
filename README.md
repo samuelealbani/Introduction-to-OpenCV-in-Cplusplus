@@ -46,16 +46,19 @@ In this workshop, hands on we will explore
 #### OpenCV
 0. Installation
 1. Hello World (simple read/output image file)
-2. Video (file/camera input)
-3. Graphics (2D shapes / text)
-4. Image Manipulation (BW, blur, edge detection, segmentation)
+2. Graphics (2D shapes / text / random)
+3. GUI
+4. Image Manipulation (BW, threshold, blur, , erosion, contour detection, edge detection?)
+   1. [example collection](https://docs.opencv.org/4.x/d8/d54/tutorial_js_imgproc_camera.html)
 5. Image Analysis (Blob Detection)
-6. Applications/Examples
+6. Video (file/camera input)
+   1. [example](https://docs.opencv.org/4.x/d8/dfe/classcv_1_1VideoCapture.html#:~:text=Detailed%20Description)
+7. Applications/Examples
    1. Brightest spot (torch)
    2. Aruco (chess)
-7. [Face Recognition](https://docs.opencv.org/4.x/da/d60/tutorial_face_main.html)
-8. [Deep Learning Models](https://docs.opencv.org/4.x/d0/dd4/tutorial_dnn_face.html) [`extra`]
-9. Robot Demonstration [`testing`]
+8. [Face Recognition](https://docs.opencv.org/4.x/da/d60/tutorial_face_main.html)
+9. [Deep Learning Models](https://docs.opencv.org/4.x/d0/dd4/tutorial_dnn_face.html) [`extra`]
+10. Robot Demonstration [`testing`]
 
 ## OpenCV
 **OpenCV (Open Source Computer Vision Library) is an open source computer vision and machine learning software library.**
