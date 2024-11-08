@@ -55,6 +55,7 @@ Please, check and find your opencv installation folder either using Terminal or 
 **OpenCV**:
 - [OpenCV | Home](https://opencv.org/)
 - [Deep Learning with OpenCV DNN Module](https://learnopencv.com/deep-learning-with-opencvs-dnn-module-a-definitive-guide/)
+- [Computer Vision: Algorithms and Applications, 2nd ed.](https://szeliski.org/Book/)
 ### Books
 - [Programming: Principles and Practice Using C++, 2nd Ed.](https://www.informit.com/store/programming-principles-and-practice-using-c-plus-plus-9780321992789)
 - [C++ Primer](https://www.amazon.com/Primer-5th-Stanley-B-Lippman/dp/0321714113?s=books&ie=UTF8&qid=1343780237&sr=1-1&keywords=c%2B%2B+primer)
