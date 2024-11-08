@@ -13,7 +13,7 @@
 using namespace cv;
 
 int main(int argc, const char * argv[]) {
-   std::string image_path = samples::findFile("lisa.jpeg");
+   std::string image_path = samples::findFile("...path//lena.jpeg"); // use absolute paths!
         Mat img = imread(image_path, IMREAD_COLOR);
      
         if(img.empty())

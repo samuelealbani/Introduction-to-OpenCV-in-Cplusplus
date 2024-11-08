@@ -10,11 +10,13 @@
 
 using namespace std;
 
-void say_hello(string name){
+void say_hello(string); // declaration (no memory allocation)
+
+void say_hello(string name){ // definition
     cout << "Hello, " << name << "\n";
 }
 
-int plus_one(int x){
+int plus_one(int x){ // definition
     return x+1;
 }
 
@@ -32,3 +34,5 @@ int main(int argc, const char * argv[]) {
     
     return 0;
 }
+
+
