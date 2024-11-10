@@ -50,10 +50,11 @@ Please, check and find your opencv installation folder either using Terminal or 
 - [Standard C++ Foundation](https://isocpp.org/)
 - [C++ Reference](https://en.cppreference.com/w/)
 - [cplusplus.com](https://cplusplus.com/) | A site with general information about the C++ language, a reference, tutorial, and an articles section.
-- 
 
 **OpenCV**:
 - [OpenCV | Home](https://opencv.org/)
+- [OpenCV | github repository](https://github.com/opencv/opencv)
+- [OpenCV | github extra modules repository](https://github.com/opencv/opencv)
 - [Deep Learning with OpenCV DNN Module](https://learnopencv.com/deep-learning-with-opencvs-dnn-module-a-definitive-guide/)
 - [Computer Vision: Algorithms and Applications, 2nd ed.](https://szeliski.org/Book/)
 ### Books
