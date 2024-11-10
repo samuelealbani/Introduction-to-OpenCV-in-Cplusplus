@@ -48,7 +48,7 @@ In this workshop, hands on we will explore
 1. Hello World (simple read/output image file)
 2. Graphics (2D shapes / text / random)
 3. GUI
-4. Image Manipulation (BW, threshold, blur, , erosion, contour detection, edge detection?)
+4. Image Manipulation (BW, threshold, blur, contour detection, bounding boxes)
    1. [example collection](https://docs.opencv.org/4.x/d8/d54/tutorial_js_imgproc_camera.html)
 5. Image Analysis (Blob Detection)
 6. Video (file/camera input)

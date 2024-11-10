@@ -35,8 +35,11 @@ The reason is that we are not very good at dealing with large problems. The way 
 
 When we consider dividing up a program, we must always consider what tools we have available to express the parts and their communications. We must consider what libraries we have available to express the parts and their communication.
 
+the `::` operator is called "scope resolution operator" and it specifies the scope of something (function, an object, a type, etc). on the left you can find a namespace or a class or it refers to the global scope if there isn't any prefix
+
 ## Outline
 1. Hello world ( pure output production)
+   1.  C++ is a compiled language because it uses a compiler to translate the source code into an object code. This object code is converted to the executable for the end-users to run.
 2. Data 
    (**real software tend to produce results based on some input, rather than just doing exactly the same thing each time we excecute them**. To read sth, we need somewhere to read into, in the computer's memory to place what to read. We call such a "place" an object. An *object* is a region of memory with a *type* that specifies what kind of information can be placed in it. **A named object is called a *variable***. The data we put into the variables are called *values*. A statement that defines a variable is called a *definition*. A definition can provide an initial value.)
 3. Computation 
