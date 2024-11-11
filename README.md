@@ -23,18 +23,17 @@ Please, check and find your opencv installation folder either using Terminal or 
 1. [Install Visual Studio Community](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&passive=false&cid=2030#installvs) selecting the component **`Desktop development with C++`**
 2. [Install CMake](https://cmake.org/download/)
 3. **Setup** OpenCV Source: 
-   1. Create a folder called opencv
-   2. Download as zip and extract into this folder the [opencv](https://github.com/opencv/opencv) main repository.
-   3. Download as zip and extract into this folder the [opencv_contrib](https://github.com/opencv/opencv_contrib.git) repository.
-   4. Create an empty folder called `build`
+   1. Create a folder called opencv (i.e. `C:\opencv`).
+   2. Download as zip and extract into this folder the [opencv](https://github.com/opencv/opencv) main repository (i.e. `C:\opencv\opencv-4.x`).
+   3. Download as zip and extract into this folder the [opencv_contrib](https://github.com/opencv/opencv_contrib.git) repository (i.e. `C:\opencv\opencv_contrib-4.x`).
+   4. Create an empty folder called `build` in into the opencv folder (i.e. `C:\opencv\build`).
 4. **Build** OpenCV with extra modules using CMAKE:
    1. Start cmake-gui.
    2. Select the opencv source code folder and the folder where binaries will be built (using the two upper fields in the interface).
    3. Press the `Configure` button to display all OpenCV build parameters.
-   4. Search for `OPENCV_EXTRA_MODULES_PATH` and set it to the path of `<opencv_contrib>/modules` by using the browse button..
-   5. Press `Configure` again, then `Generate` (the first time, you’ll need to select a makefile style).
-   6. Build the opencv core with the method you chose (make and make install if you chose Unix makefile at step 6).
-   7. To run, linker flags to contrib modules will need to be added to use them in your code/IDE. For example to use the aruco module, "-lopencv_aruco" flag will be added.
+   4. Search for `OPENCV_EXTRA_MODULES_PATH` and set it to the path of `<opencv_contrib>/modules` by using the browse button.
+   5. Flag the option `BUILD_opencv_world`.
+   6. Press `Configure` again, then `Generate` (the first time, you’ll need to select a makefile style).
 5. **Install** OpenCV using Visual Studio 
    1. Click `Open Project` in CMake gui to load the Visual Studio Project
    2.  Open `Solution Explorer`.
