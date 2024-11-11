@@ -31,9 +31,10 @@ Please, check and find your opencv installation folder either using Terminal or 
    1. Start cmake-gui.
    2. Select the opencv source code folder (i.e. `C:\opencv\opencv-4.x`) and the folder where binaries will be built (i.e. `C:\opencv\build`) (using the two upper fields in the interface).
    3. Press the `Configure` button to display all OpenCV build parameters.
-   4. Search for `OPENCV_EXTRA_MODULES_PATH` and set it to the path of `<opencv_contrib>/modules` by using the browse button.
-   5. Flag the option `BUILD_opencv_world`.
-   6. Press `Configure` again, then `Generate` (the first time, you’ll need to select a makefile style).
+   4. The first time it will ask you to specify the generator for this project. Select `Visual Studio 17 2022`.
+   5. Search for `OPENCV_EXTRA_MODULES_PATH` and set it to the path of `<opencv_contrib_path>/modules` by using the browse button.
+   6. Flag the option `BUILD_opencv_world`.
+   7. Press `Configure` again, then `Generate` (the first time, you’ll need to select a makefile style).
 5. **Install** OpenCV using Visual Studio 
    1. Click `Open Project` in CMake gui to load the Visual Studio Project
    2.  Open `Solution Explorer`.
@@ -42,6 +43,57 @@ Please, check and find your opencv installation folder either using Terminal or 
 6.  Edit Environment Variable:
     1. Go to `System variables> Path > Edit > New` and add the path:
         > C:\opencv\build\install\x64\vc17\bin
+
+## How to create a new project
+
+### on MacOS using XCode
+
+1. Run XCode.
+2. Press `Create New Project` on the Splash Page  or `File > New > Project`. 
+3. Select `macOS` tab, and press `Next`.
+4. Select `Command Line Tool` and press `Next`.
+5. Type a title, Type an Organization Identifier (i.e. `com.yourname`), Select `C++` as Language, and press `Next`.
+6. Choose the directory for your project, and press `Create`.
+7. Find OpenCV library files and paths
+   1. Open a terminal and type `brew install pkg-config`
+   2. View the linker flags for OpenCV running `pkg-config --cflags --libs /opt/homebrew/Cellar/opencv/<VERSION>/lib/pkgconfig/opencv4.pc` (Change <VERSION> with your saved version of OpenCV! i.e. `pkg-config --cflags --libs /opt/homebrew/Cellar/opencv/4.10.0_12/lib/pkgconfig/opencv4.pc`)
+   The output will be something like:
+   ```bash
+   -I/opt/homebrew/opt/opencv/include/opencv4 -L/opt/homebrew/opt/opencv/lib -lopencv_gapi -lopencv_stitching -lopencv_alphamat -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired -lopencv_ccalib -lopencv_dnn_objdetect -lopencv_dnn_superres -lopencv_dpm -lopencv_face -lopencv_freetype -lopencv_fuzzy -lopencv_hfs -lopencv_img_hash -lopencv_intensity_transform -lopencv_line_descriptor -lopencv_mcc -lopencv_quality -lopencv_rapid -lopencv_reg -lopencv_rgbd -lopencv_saliency -lopencv_sfm -lopencv_signal -lopencv_stereo -lopencv_structured_light -lopencv_phase_unwrapping -lopencv_superres -lopencv_optflow -lopencv_surface_matching -lopencv_tracking -lopencv_highgui -lopencv_datasets -lopencv_text -lopencv_plot -lopencv_videostab -lopencv_videoio -lopencv_viz -lopencv_wechat_qrcode -lopencv_xfeatures2d -lopencv_shape -lopencv_ml -lopencv_ximgproc -lopencv_video -lopencv_xobjdetect -lopencv_objdetect -lopencv_calib3d -lopencv_imgcodecs -lopencv_features2d -lopencv_dnn -lopencv_flann -lopencv_xphoto -lopencv_photo -lopencv_imgproc -lopencv_core
+   ```
+
+   The above shows you the includes and the libraries for OpenCV:
+   - The _include search path_ (after '-I'): `/opt/homebrew/opt/opencv/include/opencv4`
+   - The _library search path_ (after '-L'): `/opt/homebrew/opt/opencv/lib`
+   - The library files _linker flags_: `-lopencv_gapi`, `-lopencv_stitching`, `-lopencv_alphamat`, `-lopencv_aruco`, etc.
+
+8. Set Header Search Paths:
+   1. click on the Xcode project name in the left side panel, go to `Build Settings` tab and then search for `Header Search Paths`  in the search bar.
+   2. double click to add the _include search path_ (paste the path you found with pkg-config) (i.e. `/opt/homebrew/opt/opencv/include/opencv4`)
+9. Set Library Search Paths:
+   1. click on the Xcode project name in the left side panel, go to `Build Settings` tab and then search for `Library Search Paths`  in the search bar.
+   2. double click to add the _library search path_ (paste the path you found with pkg-config) (i.e.  `/opt/homebrew/opt/opencv/lib`)
+10. Set Other Linker Flags:
+   1. click on the Xcode project name in the left side panel, go to `Build Settings` tab and then search for `Other linker flags`  in the search bar.
+   2. double click to add the _library search path_ (paste the path you found with pkg-config) (i.e. `libopencv_core.4.10.0.dylib`, `libopencv_highgui.4.10.0.dylib`, and `libopencv_imgcodecs.4.10.0.dylib`)
+11. Sigining & Capabilities (if necessary)
+   1. Flag Disable Library Validation
+[Tutorial source](https://medium.com/@jaskaranvirdi/setting-up-opencv-and-c-development-environment-in-xcode-b6027728003)
+
+
+### On Windows using Visual Studio 
+
+1. Create a new project:
+   1. Run Visual Studio 2022,
+   2. Press `Create New Project` or press `File > New > Project`,
+   3. Select "Console App C++" Template and click `Next`,
+   4. Rename your project, Select the Location, and click `Create`.
+2. Include Libraries into the project (for both `Debug` and `Release`):
+   1. Right-click on the Project Name (in Solution Explorer panel) > Click `Properties`,
+   2. C/C++ > General > Additional Include Directories > Add `C:\opencv\build\install\include`,
+   3. Linker > General > Additional Library Directories > Add `C:\opencv\build\install\x64\vc17\lib`,
+   4. Linker > Input > Additional Dependencies > Add the names of the lib files relative to the libraries you need to link (i.e. opencv_core4100.lib, opencv_highgui4100.lib, opencv_imgcodecs4100.lib, etc)  or the world lib if you flagged build 'world' in CMAKE.(N.B. `d` version for Debug Configuration)
+
 
 ## Resources
 ### Web
