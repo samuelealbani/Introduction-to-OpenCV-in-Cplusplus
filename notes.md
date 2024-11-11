@@ -277,7 +277,7 @@ In Visual Studio:
 1. Press `Create New Project` or press `File > New > Project`
 2. C++ Empty Project
 3. RMB on Source Files > Add > New Item
-4. Rename the file `Source.cpp`
+4. Rename the file `Source.cpp` (???)
 
 Include Libraries into the project (for both Debug and Release)
 1. RMB on Project Name > Press `Properties`

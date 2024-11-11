@@ -127,9 +127,96 @@ cout << *ptr;		// it will print 17
 
 ### Fundamental OpenCV Data Structure
 
-#### cv::Mat
+#### Hello World (display image)
+
+### Video Input
+```cpp
+#include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
+#include <opencv2/highgui.hpp>
+#include <iostream>
+#include <stdio.h>
+ 
+using namespace cv;
+using namespace std;
+ 
+int main(int, char**)
+{
+    Mat frame;
+    //--- INITIALIZE VIDEOCAPTURE
+    VideoCapture cap;
+    // open the default camera using default API
+    // cap.open(0);
+    // OR advance usage: select any API backend
+    int deviceID = 0;             // 0 = open default camera
+    int apiID = cv::CAP_ANY;      // 0 = autodetect default API
+    // open selected camera using selected API
+    cap.open(deviceID, apiID);
+    // check if we succeeded
+    if (!cap.isOpened()) {
+        cerr << "ERROR! Unable to open camera\n";
+        return -1;
+    }
+    cap.set(CAP_PROP_FRAME_WIDTH, 400);
+    cap.set(CAP_PROP_FRAME_HEIGHT, 300);
+    //--- GRAB AND WRITE LOOP
+    cout << "Start grabbing" << endl
+        << "Press any key to terminate" << endl;
+    for (;;)
+    {
+        // wait for a new frame from camera and store it into 'frame'
+        cap.read(frame);
+        // check if we succeeded
+        if (frame.empty()) {
+            cerr << "ERROR! blank frame grabbed\n";
+            break;
+        }
+        // show live and wait for a key with timeout long enough to show images
+        imshow("Live", frame);
+        if (waitKey(5) >= 0)
+            break;
+    }
+    // the camera will be deinitialized automatically in VideoCapture destructor
+    return 0;
+}
+```
 
 ### Drawing functions
+
+```cpp
+// declare and initialise a Mat object
+Mat graph = Mat::zeros(600, 800, CV_8UC3);
+
+// draw a circle
+circle(graph, Point(400, 300), 100, Scalar(255, 255, 255), 3); // Mat, Point(x,y), Scalar(B,G,R), thickness
+```
+
+### Mouse Events
+
+```cpp
+// declare the callback function
+void onMouseCallback(int event, int x, int y, int flags, void* userdata){
+    // cout << "x: " << x << " - y: " << y << endl; // called for every event
+    if(event == EVENT_LBUTTONDOWN){
+        cout << "LMB clicked at " << x << ' ' << y << endl;
+    } else if(event == EVENT_LBUTTONUP){
+        cout << "LMB released at " << x << ' ' << y << endl;
+    }
+
+    // update the output (if necessary)
+    imshow(window_name, image); 
+}
+
+int main(){
+
+    // ...
+
+     //set the callback function for any mouse event
+    setMouseCallback(window_name, onMouseCallback);
+
+    //...
+}
+```
 
 ### Convert to grey scale
 ```cpp
@@ -145,6 +232,73 @@ blur(src, dst, Size(3, 3));
 ```cpp
 for(int i = 1; i < MAX_KERNEL_LENGTH; i+=2){
     GaussianBlur(gray, dst, Size(i, i), 0, 0);
+}
+```
+### Threshold
+```cpp
+
+#include "opencv2/imgproc.hpp"
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include <iostream>
+ 
+using namespace cv;
+using std::cout;
+ 
+ 
+int threshold_value = 0;
+int threshold_type = 3;
+int const max_value = 255;
+int const max_type = 4;
+int const max_binary_value = 255;
+ 
+Mat src, src_gray, dst;
+const char* window_name = "Threshold Demo";
+ 
+const char* trackbar_type = "Type: \n 0: Binary \n 1: Binary Inverted \n 2: Truncate \n 3: To Zero \n 4: To Zero Inverted";
+const char* trackbar_value = "Value";
+ 
+ 
+static void Threshold_Demo( int, void* )
+{
+    /* 0: Binary
+     1: Binary Inverted
+     2: Threshold Truncated
+     3: Threshold to Zero
+     4: Threshold to Zero Inverted
+    */
+    threshold( src_gray, dst, threshold_value, max_binary_value, threshold_type );
+    imshow( window_name, dst );
+}
+ 
+int main( int argc, char** argv )
+{
+    String imageName("stuff.jpg"); // by default
+
+    src = imread( samples::findFile( imageName ), IMREAD_COLOR ); // Load an image
+ 
+    if (src.empty())
+    {
+        cout << "Cannot read the image: " << imageName << std::endl;
+        return -1;
+    }
+ 
+    cvtColor( src, src_gray, COLOR_BGR2GRAY ); // Convert the image to Gray
+ 
+    namedWindow( window_name, WINDOW_AUTOSIZE ); // Create a window to display results
+ 
+    createTrackbar( trackbar_type,
+                    window_name, &threshold_type,
+                    max_type, Threshold_Demo ); // Create a Trackbar to choose type of Threshold
+ 
+    createTrackbar( trackbar_value,
+                    window_name, &threshold_value,
+                    max_value, Threshold_Demo ); // Create a Trackbar to choose Threshold value
+ 
+    Threshold_Demo( 0, 0 ); // Call the function to initialize
+ 
+    waitKey();
+    return 0;
 }
 ```
 
@@ -253,6 +407,68 @@ int main( int argc, char** argv )
   waitKey(0);
 
   return 0;
+}
+```
+
+### Find Contours
+```cpp
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
+#include <iostream>
+ 
+using namespace cv;
+using namespace std;
+ 
+Mat src_gray;
+int thresh = 100;
+RNG rng(12345);
+ 
+void thresh_callback(int, void* );
+ 
+int main( int argc, char** argv )
+{
+    CommandLineParser parser( argc, argv, "{@input | HappyFish.jpg | input image}" );
+    Mat src = imread( samples::findFile( parser.get<String>( "@input" ) ) );
+    if( src.empty() )
+    {
+      cout << "Could not open or find the image!\n" << endl;
+      cout << "Usage: " << argv[0] << " <Input image>" << endl;
+      return -1;
+    }
+ 
+    cvtColor( src, src_gray, COLOR_BGR2GRAY );
+    blur( src_gray, src_gray, Size(3,3) );
+ 
+    const char* source_window = "Source";
+    namedWindow( source_window );
+    imshow( source_window, src );
+ 
+    const int max_thresh = 255;
+    createTrackbar( "Canny thresh:", source_window, &thresh, max_thresh, thresh_callback );
+    thresh_callback( 0, 0 );
+ 
+    waitKey();
+    return 0;
+}
+ 
+void thresh_callback(int, void* )
+{
+    Mat canny_output;
+    Canny( src_gray, canny_output, thresh, thresh*2 );
+ 
+    vector<vector<Point> > contours;
+    vector<Vec4i> hierarchy;
+    findContours( canny_output, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE );
+ 
+    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
+    for( size_t i = 0; i< contours.size(); i++ )
+    {
+        Scalar color = Scalar( rng.uniform(0, 256), rng.uniform(0,256), rng.uniform(0,256) );
+        drawContours( drawing, contours, (int)i, color, 2, LINE_8, hierarchy, 0 );
+    }
+ 
+    imshow( "Contours", drawing );
 }
 ```
 
