@@ -233,31 +233,20 @@ If XCode opens a new terminal page follow this procedure:
 
 #### 1) Setup Source
 
-1. Create a folder called opencv
-3. Download as zip and extract here the [opencv](https://github.com/opencv/opencv) main repository.
-4. Download as zip and extract here the [opencv_contrib](https://github.com/opencv/opencv_contrib.git) repository.
-5. Create folder `build`
-
-
+1. Create a folder called opencv (i.e. `C:\opencv`)
+3. Download as zip and extract here the [opencv](https://github.com/opencv/opencv) main repository (i.e. `C:\opencv\opencv-4.x`).
+4. Download as zip and extract here the [opencv_contrib](https://github.com/opencv/opencv_contrib.git) repository (i.e. `C:\opencv\opencv_contrib-4.x`).
+5. Create folder `build` in opencv (i.e. `C:\opencv\build`)
 
 #### 2) Build OpenCV with extra modules using CMAKE:
 
 1. Start cmake-gui.
-
 2. Select the opencv source code folder and the folder where binaries will be built (the 2 upper forms of the interface).
-
 3. Press the configure button. You will see all the opencv build parameters in the central interface.
-
 4. Browse the parameters and look for the form called OPENCV_EXTRA_MODULES_PATH (use the search form to focus rapidly on it).
-
 5. Complete this OPENCV_EXTRA_MODULES_PATH by the proper pathname to the <opencv_contrib>/modules value using its browse button.
-
-6. Press the configure button followed by the generate button (the first time, you will be asked which makefile style to use).
-
-7. Build the opencv core with the method you chose (make and make install if you chose Unix makefile at step 6).
-
-8. To run, linker flags to contrib modules will need to be added to use them in your code/IDE. For example to use the aruco module, "-lopencv_aruco" flag will be added.
-
+6. Flag the option `BUILD_opencv_world`
+7. Press the `Configure` button followed by the `Generate` button (the first time, you will be asked which makefile style to use).
 
 #### 3) Install using Visual Studio 
 
@@ -275,14 +264,13 @@ If XCode opens a new terminal page follow this procedure:
 
 In Visual Studio:
 1. Press `Create New Project` or press `File > New > Project`
-2. C++ Empty Project
-3. RMB on Source Files > Add > New Item
-4. Rename the file `Source.cpp` (???)
+2. Select "Console App C++" Template and click `Next`
+3. Rename your project, Select the Locationm, and click `Create`
 
-Include Libraries into the project (for both Debug and Release)
-1. RMB on Project Name > Press `Properties`
+Include Libraries into the project (for both `Debug` and `Release`)
+1. Right-click on the Project Name (in Solution Explorer panel) > Click `Properties`
 2. C/C++ > General > Additional Include Directories > Add `C:\opencv\build\install\include`
-3. Linker > General > Additional Include Directories > Add `C:\opencv\build\install\x64\vc17\lib`
+3. Linker > General > Additional Library Directories > Add `C:\opencv\build\install\x64\vc17\lib`
 4. Linker > Input > Additional Dependencies > Add the names of the lib files relative to the libraries you need to link (i.e. core, opencv_highgui4100.lib, imgcodecs, etc) (N.B. `d` version for Debug Configuration)
 
 
