@@ -123,63 +123,7 @@ cout << *ptr;		// it will print 17
 ```
 
 
-## OpenCV
-
-### Fundamental OpenCV Data Structure
-
-#### Hello World (display image)
-
-### Video Input
-```cpp
-#include <opencv2/core.hpp>
-#include <opencv2/videoio.hpp>
-#include <opencv2/highgui.hpp>
-#include <iostream>
-#include <stdio.h>
- 
-using namespace cv;
-using namespace std;
- 
-int main(int, char**)
-{
-    Mat frame;
-    //--- INITIALIZE VIDEOCAPTURE
-    VideoCapture cap;
-    // open the default camera using default API
-    // cap.open(0);
-    // OR advance usage: select any API backend
-    int deviceID = 0;             // 0 = open default camera
-    int apiID = cv::CAP_ANY;      // 0 = autodetect default API
-    // open selected camera using selected API
-    cap.open(deviceID, apiID);
-    // check if we succeeded
-    if (!cap.isOpened()) {
-        cerr << "ERROR! Unable to open camera\n";
-        return -1;
-    }
-    cap.set(CAP_PROP_FRAME_WIDTH, 400);
-    cap.set(CAP_PROP_FRAME_HEIGHT, 300);
-    //--- GRAB AND WRITE LOOP
-    cout << "Start grabbing" << endl
-        << "Press any key to terminate" << endl;
-    for (;;)
-    {
-        // wait for a new frame from camera and store it into 'frame'
-        cap.read(frame);
-        // check if we succeeded
-        if (frame.empty()) {
-            cerr << "ERROR! blank frame grabbed\n";
-            break;
-        }
-        // show live and wait for a key with timeout long enough to show images
-        imshow("Live", frame);
-        if (waitKey(5) >= 0)
-            break;
-    }
-    // the camera will be deinitialized automatically in VideoCapture destructor
-    return 0;
-}
-```
+## OpenCV code examples
 
 ### Drawing functions
 
@@ -190,6 +134,8 @@ Mat graph = Mat::zeros(600, 800, CV_8UC3);
 // draw a circle
 circle(graph, Point(400, 300), 100, Scalar(255, 255, 255), 3); // Mat, Point(x,y), Scalar(B,G,R), thickness
 ```
+
+
 
 ### Mouse Events
 
@@ -217,6 +163,35 @@ int main(){
     //...
 }
 ```
+
+### Trackbars
+```cpp
+const char* trackbar_name = "Name";
+int slider_value = 0;
+int const max_slider = 255;
+
+void trackbarCallback(int, void*){
+    // compute using the slider value
+    //...
+
+    // show the results
+    imshow("Display", image); 
+}
+
+int main(){
+//...
+
+// create trackbar
+createTrackbar( trackbar_name, window_name, &slider_value, max_slider, trackbarCallback );
+
+// call it to show the first result
+trackbarCallback(0, 0);
+
+//..
+
+}
+```
+
 
 ### Convert to grey scale
 ```cpp
@@ -275,7 +250,7 @@ int main( int argc, char** argv )
 {
     String imageName("stuff.jpg"); // by default
 
-    src = imread( samples::findFile( imageName ), IMREAD_COLOR ); // Load an image
+    src = imread( "path/to/stuff.jpg" ); // Load an image
  
     if (src.empty())
     {
@@ -303,11 +278,6 @@ int main( int argc, char** argv )
 ```
 
 ### Canny threshold
-```cpp
-Canny( detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size );
-```
-#### Example
-
 ```cpp
 /**
  * source: https://github.com/opencv/opencv/blob/4.x/samples/cpp/tutorial_code/ImgTrans/CannyDetector_Demo.cpp
@@ -371,8 +341,7 @@ static void CannyThreshold(int, void*)
 int main( int argc, char** argv )
 {
   //![load]
-  CommandLineParser parser( argc, argv, "{@input | fruits.jpg | input image}" );
-  src = imread( samples::findFile( parser.get<String>( "@input" ) ), IMREAD_COLOR ); // Load an image
+   src = imread( "path/to/stuff.jpg" ); // Load an image
 
   if( src.empty() )
   {
@@ -428,8 +397,7 @@ void thresh_callback(int, void* );
  
 int main( int argc, char** argv )
 {
-    CommandLineParser parser( argc, argv, "{@input | HappyFish.jpg | input image}" );
-    Mat src = imread( samples::findFile( parser.get<String>( "@input" ) ) );
+    Mat src = imread( "path/to/stuff.jpg" );
     if( src.empty() )
     {
       cout << "Could not open or find the image!\n" << endl;
@@ -472,37 +440,295 @@ void thresh_callback(int, void* )
 }
 ```
 
-### Mapping
+### Bounding Box
 ```cpp
-x = (inValue - minInRange) / (maxInRange - minInRange);
-result = minOutRange + (maxOutRange - minOutRange) * x;
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
+#include <iostream>
+using namespace cv;
+using namespace std;
+Mat src_gray;
+int thresh = 100;
+RNG rng(12345);
+void thresh_callback(int, void* );
+int main( int argc, char** argv )
+{
+    Mat src = imread( "path/to/stuff.jpg" );
+    if( src.empty() )
+    {
+        cout << "Could not open or find the image!\n" << endl;
+        cout << "usage: " << argv[0] << " <Input image>" << endl;
+        return -1;
+    }
+    cvtColor( src, src_gray, COLOR_BGR2GRAY );
+    blur( src_gray, src_gray, Size(3,3) );
+    const char* source_window = "Source";
+    namedWindow( source_window );
+    imshow( source_window, src );
+    const int max_thresh = 255;
+    createTrackbar( "Canny thresh:", source_window, &thresh, max_thresh, thresh_callback );
+    thresh_callback( 0, 0 );
+    waitKey();
+    return 0;
+}
+void thresh_callback(int, void* )
+{
+    Mat canny_output;
+    Canny( src_gray, canny_output, thresh, thresh*2 );
+    vector<vector<Point> > contours;
+    findContours( canny_output, contours, RETR_TREE, CHAIN_APPROX_SIMPLE );
+    vector<vector<Point> > contours_poly( contours.size() );
+    vector<Rect> boundRect( contours.size() );
+    vector<Point2f>centers( contours.size() );
+    vector<float>radius( contours.size() );
+    for( size_t i = 0; i < contours.size(); i++ )
+    {
+        approxPolyDP( contours[i], contours_poly[i], 3, true );
+        boundRect[i] = boundingRect( contours_poly[i] );
+        minEnclosingCircle( contours_poly[i], centers[i], radius[i] );
+    }
+    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
+    for( size_t i = 0; i< contours.size(); i++ )
+    {
+        Scalar color = Scalar( rng.uniform(0, 256), rng.uniform(0,256), rng.uniform(0,256) );
+        drawContours( drawing, contours_poly, (int)i, color );
+        rectangle( drawing, boundRect[i].tl(), boundRect[i].br(), color, 2 );
+        circle( drawing, centers[i], (int)radius[i], color, 2 );
+    }
+    imshow( "Contours", drawing );
+}
 ```
 
-
-### Trackbars
+### Video Input
 ```cpp
-const char* trackbar_name = "Name";
-int slider_value = 0;
-int const max_slider = 255;
-
-void trackbarCallback(int, void*){
-    // compute using the slider value
-    //...
-
-    // show the results
-    imshow("Display", image); 
-}
-
-int main(){
-//...
-
-// create trackbar
-createTrackbar( trackbar_name, window_name, &slider_value, max_slider, trackbarCallback );
-
-// call it to show the first result
-trackbarCallback(0, 0);
-
-//..
-
+#include <opencv2/core.hpp>
+#include <opencv2/videoio.hpp>
+#include <opencv2/highgui.hpp>
+#include <iostream>
+#include <stdio.h>
+ 
+using namespace cv;
+using namespace std;
+ 
+int main(int, char**)
+{
+    Mat frame;
+    //--- INITIALIZE VIDEOCAPTURE
+    VideoCapture cap;
+    // open the default camera using default API
+    // cap.open(0);
+    // OR advance usage: select any API backend
+    int deviceID = 0;             // 0 = open default camera
+    int apiID = cv::CAP_ANY;      // 0 = autodetect default API
+    // open selected camera using selected API
+    cap.open(deviceID, apiID);
+    // check if we succeeded
+    if (!cap.isOpened()) {
+        cerr << "ERROR! Unable to open camera\n";
+        return -1;
+    }
+    cap.set(CAP_PROP_FRAME_WIDTH, 400);
+    cap.set(CAP_PROP_FRAME_HEIGHT, 300);
+    //--- GRAB AND WRITE LOOP
+    cout << "Start grabbing" << endl
+        << "Press any key to terminate" << endl;
+    for (;;)
+    {
+        // wait for a new frame from camera and store it into 'frame'
+        cap.read(frame);
+        // check if we succeeded
+        if (frame.empty()) {
+            cerr << "ERROR! blank frame grabbed\n";
+            break;
+        }
+        // show live and wait for a key with timeout long enough to show images
+        imshow("Live", frame);
+        if (waitKey(5) >= 0)
+            break;
+    }
+    // the camera will be deinitialized automatically in VideoCapture destructor
+    return 0;
 }
 ```
+## Aruco
+1. create the utility file
+   1. Create a file in the same folder of the main.cpp called 'aruco_samples_utilities.hpp'
+   2. Paste the content of this [file](https://github.com/opencv/opencv/blob/4.x/samples/cpp/tutorial_code/objectDetection/aruco_samples_utility.hpp)
+2. collect the data
+   1. Create a file called `aruco_samples_utility.hpp`
+   2. Paste the content of this [file](https://github.com/opencv/opencv/blob/4.x/samples/cpp/tutorial_code/objectDetection/aruco_samples_utility.hpp)
+   3. Create a file called `tutorial_camera_params.yml`
+   4. Paste the content of this [file](hhttps://github.com/opencv/opencv/blob/4.x/samples/cpp/tutorial_code/objectDetection/tutorial_camera_params.yml)
+   5. Create a file called `tutorial_dict.yml`
+   6. Paste the content of this [file](https://github.com/opencv/opencv/blob/4.x/samples/cpp/tutorial_code/objectDetection/tutorial_dict.yml)
+   7. paste in the same folder this [file](https://github.com/opencv/opencv/blob/4.x/doc/tutorials/objdetect/aruco_board_detection/images/gboriginal.jpg) 
+3. Set these command line paramenter in you IDE (change the paths accordingly):
+```
+-w=5 -h=7 -l=100 -s=10
+-v=/path_to/gboriginal.jpg
+-c=/path_to/tutorial_camera_params.yml
+-cd=/path_to/tutorial_dict.yml
+```
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <opencv2/highgui.hpp>
+#include <opencv2/objdetect/aruco_detector.hpp>
+#include "./aruco_samples_utilities.hpp"
+
+using namespace std;
+using namespace cv;
+
+namespace {
+const char* about = "Pose estimation using a ArUco Planar Grid board";
+
+//! [aruco_detect_board_keys]
+const char* keys  =
+        "{w        |       | Number of squares in X direction }"
+        "{h        |       | Number of squares in Y direction }"
+        "{l        |       | Marker side length (in pixels) }"
+        "{s        |       | Separation between two consecutive markers in the grid (in pixels)}"
+        "{d        |       | dictionary: DICT_4X4_50=0, DICT_4X4_100=1, DICT_4X4_250=2,"
+        "DICT_4X4_1000=3, DICT_5X5_50=4, DICT_5X5_100=5, DICT_5X5_250=6, DICT_5X5_1000=7, "
+        "DICT_6X6_50=8, DICT_6X6_100=9, DICT_6X6_250=10, DICT_6X6_1000=11, DICT_7X7_50=12,"
+        "DICT_7X7_100=13, DICT_7X7_250=14, DICT_7X7_1000=15, DICT_ARUCO_ORIGINAL = 16}"
+        "{cd       |       | Input file with custom dictionary }"
+        "{c        |       | Output file with calibrated camera parameters }"
+        "{v        |       | Input from video or image file, if omitted, input comes from camera }"
+        "{ci       | 0     | Camera id if input doesnt come from video (-v) }"
+        "{dp       |       | File of marker detector parameters }"
+        "{rs       |       | Apply refind strategy }"
+        "{r        |       | show rejected candidates too }";
+}
+//! [aruco_detect_board_keys]
+
+int main(int argc, char *argv[]) {
+    CommandLineParser parser(argc, argv, keys);
+    parser.about(about);
+
+    if(argc < 7) {
+        parser.printMessage();
+        return 0;
+    }
+
+    //! [aruco_detect_board_full_sample]
+    int markersX = parser.get<int>("w");
+    int markersY = parser.get<int>("h");
+    float markerLength = parser.get<float>("l");
+    float markerSeparation = parser.get<float>("s");
+    bool showRejected = parser.has("r");
+    bool refindStrategy = parser.has("rs");
+    int camId = parser.get<int>("ci");
+
+
+    Mat camMatrix, distCoeffs;
+    readCameraParamsFromCommandLine(parser, camMatrix, distCoeffs);
+    aruco::Dictionary dictionary = readDictionatyFromCommandLine(parser);
+    aruco::DetectorParameters detectorParams = readDetectorParamsFromCommandLine(parser);
+
+    String video;
+    if(parser.has("v")) {
+        video = parser.get<String>("v");
+    }
+
+    if(!parser.check()) {
+        parser.printErrors();
+        return 0;
+    }
+
+    aruco::ArucoDetector detector(dictionary, detectorParams);
+    VideoCapture inputVideo;
+    int waitTime;
+    if(!video.empty()) {
+        inputVideo.open(video);
+        waitTime = 0;
+    } else {
+        inputVideo.open(camId);
+        waitTime = 10;
+    }
+
+    float axisLength = 0.5f * ((float)min(markersX, markersY) * (markerLength + markerSeparation) +
+                               markerSeparation);
+
+    // Create GridBoard object
+    //! [aruco_create_board]
+    aruco::GridBoard board(Size(markersX, markersY), markerLength, markerSeparation, dictionary);
+    //! [aruco_create_board]
+
+    // Also you could create Board object
+    //vector<vector<Point3f> > objPoints; // array of object points of all the marker corners in the board
+    //vector<int> ids; // vector of the identifiers of the markers in the board
+    //aruco::Board board(objPoints, dictionary, ids);
+
+    double totalTime = 0;
+    int totalIterations = 0;
+
+    while(inputVideo.grab()) {
+        Mat image, imageCopy;
+        inputVideo.retrieve(image);
+
+        double tick = (double)getTickCount();
+
+        vector<int> ids;
+        vector<vector<Point2f>> corners, rejected;
+        Vec3d rvec, tvec;
+
+        //! [aruco_detect_and_refine]
+
+        // Detect markers
+        detector.detectMarkers(image, corners, ids, rejected);
+
+        // Refind strategy to detect more markers
+        if(refindStrategy)
+            detector.refineDetectedMarkers(image, board, corners, ids, rejected, camMatrix,
+                                           distCoeffs);
+
+        //! [aruco_detect_and_refine]
+
+        // Estimate board pose
+        int markersOfBoardDetected = 0;
+        if(!ids.empty()) {
+            // Get object and image points for the solvePnP function
+            cv::Mat objPoints, imgPoints;
+            board.matchImagePoints(corners, ids, objPoints, imgPoints);
+
+            // Find pose
+            cv::solvePnP(objPoints, imgPoints, camMatrix, distCoeffs, rvec, tvec);
+
+            markersOfBoardDetected = (int)objPoints.total() / 4;
+        }
+
+        double currentTime = ((double)getTickCount() - tick) / getTickFrequency();
+        totalTime += currentTime;
+        totalIterations++;
+        if(totalIterations % 30 == 0) {
+            cout << "Detection Time = " << currentTime * 1000 << " ms "
+                 << "(Mean = " << 1000 * totalTime / double(totalIterations) << " ms)" << endl;
+        }
+
+        // Draw results
+        image.copyTo(imageCopy);
+        if(!ids.empty())
+            aruco::drawDetectedMarkers(imageCopy, corners, ids);
+
+        if(showRejected && !rejected.empty())
+            aruco::drawDetectedMarkers(imageCopy, rejected, noArray(), Scalar(100, 0, 255));
+
+        if(markersOfBoardDetected > 0)
+            cv::drawFrameAxes(imageCopy, camMatrix, distCoeffs, rvec, tvec, axisLength);
+
+        imshow("out", imageCopy);
+        char key = (char)waitKey(waitTime);
+        if(key == 27) break;
+    //! [aruco_detect_board_full_sample]
+    }
+
+    return 0;
+}
+```
+
+[Complete Tutorial](https://docs.opencv.org/4.x/db/da9/tutorial_aruco_board_detection.html)
+
+

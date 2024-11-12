@@ -313,3 +313,12 @@ Include Libraries into the project (for both `Debug` and `Release`)
 library path. (For example, in Windows 10, right-click on your computer icon, select
 Properties, and then click on Advanced System Settings. Finally, select Environment
 Variables and add the OpenCV binary path to the Path variable.)
+
+
+##
+
+## Mapping
+```cpp
+x = (inValue - minInRange) / (maxInRange - minInRange);
+result = minOutRange + (maxOutRange - minOutRange) * x;
+```
