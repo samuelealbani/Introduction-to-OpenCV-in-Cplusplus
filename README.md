@@ -4,6 +4,44 @@ In this workshop, we will explore how to use the OpenCV library in C++ to create
 
 You’ll learn to execute computation on images, applying filters, detecting edges, and using blob detection. We’ll also explore advanced OpenCV features, like object recognition and integrating deep learning models. Throughout, I’ll introduce technical demonstrations drawing from my practice as an artist and experience as a creative technologist. We’ll conclude with reflections on applications in creative robotics.
 
+## Table of Contents
+
+- [Introduction to OpenCV in C++](#introduction-to-opencv-in-c)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+    - [Installation on Mac](#installation-on-mac)
+    - [Installation on Windows](#installation-on-windows)
+  - [How to create a new project](#how-to-create-a-new-project)
+    - [on MacOS using XCode](#on-macos-using-xcode)
+    - [On Windows using Visual Studio](#on-windows-using-visual-studio)
+  - [C++ fundamentals](#c-fundamentals)
+    - [Computation](#computation)
+      - [Operands:](#operands)
+    - [Selection](#selection)
+      - [if statement](#if-statement)
+      - [switch](#switch)
+    - [Iteration](#iteration)
+      - [for loop](#for-loop)
+      - [while](#while)
+    - [Collections](#collections)
+      - [Vectors](#vectors)
+    - [Pointers](#pointers)
+  - [OpenCV code examples](#opencv-code-examples)
+    - [Drawing functions](#drawing-functions)
+    - [Mouse Events](#mouse-events)
+    - [Trackbars](#trackbars)
+    - [Convert to grey scale](#convert-to-grey-scale)
+    - [Blur](#blur)
+    - [Gaussian Blur](#gaussian-blur)
+    - [Threshold](#threshold)
+    - [Canny threshold](#canny-threshold)
+    - [Find Contours](#find-contours)
+    - [Bounding Box](#bounding-box)
+    - [Video Input](#video-input)
+  - [Aruco](#aruco)
+  - [Resources](#resources)
+    - [Web](#web)
+    - [Books](#books)
 
 ## Installation
 
