@@ -12,7 +12,7 @@ using namespace std;
 
 int main(int argc, const char *argv[]) {
     // insert code here...
-    cout << "Type some names:\n";
+    cout << "Type a name:\n";
     string name;
     while (cin >> name) {
         cout << "Hello, " << name;
@@ -22,6 +22,7 @@ int main(int argc, const char *argv[]) {
         }
         
         cout << "\n";
+        cout << "Type a name:\n";
     }
 
     return 0;
